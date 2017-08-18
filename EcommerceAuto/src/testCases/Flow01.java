@@ -1,5 +1,6 @@
 package testCases;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 
 import org.openqa.selenium.WebDriver;
@@ -17,6 +18,7 @@ import pageObjects.BaseClass;
 import Utility.Browser;
 import Utility.ExtentManager;
 import Utility.Log;
+import Utility.Screenshot;
 
 public class Flow01 {
 	String testCaseName;
@@ -28,15 +30,18 @@ public class Flow01 {
 	{
 		WebDriver	driver = Browser.getDriver("chrome");
 		new BaseClass(driver);
-		ExtentReports reports = ExtentManager.GetExtent();
+		reports = ExtentManager.GetExtent();
 	}
 	@BeforeMethod
 	public void init(Method method)
 	{
 		testCaseName =method.getName();
 		Log.startLogForThisCase(testCaseName);
+		if(reports!=null)
+		{
 		test=reports.createTest(testCaseName);
-		
+		}
+		else System.out.println("reports obj is null");
 		
 		
 	}
@@ -44,6 +49,13 @@ public class Flow01 {
   public void fuck1() {
 	  
 	  BaseClass.driver.get("http://google.co.in");
+	  String path=Screenshot.screenShot(BaseClass.driver,"fuck1login" );
+	  try {
+		test.addScreenCaptureFromPath(path);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	  Log.info("Inside "+testCaseName);
 	  Log.debug("inside debug 1");
 	  test.debug("Inside "+testCaseName);
@@ -53,6 +65,13 @@ public class Flow01 {
   @Test
   public void fuck2() {
 	  BaseClass.driver.get("http://facebook.com");
+	  String path=Screenshot.screenShot(BaseClass.driver,"fuck2login" );
+	  try {
+		test.addScreenCaptureFromPath(path);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	  Log.info("Inside "+testCaseName);
 	  Log.debug("inside debug 2");
 	  test.debug("Inside "+testCaseName);
@@ -68,6 +87,8 @@ public class Flow01 {
   @AfterSuite
   public void teardown()
   {
+	  reports.flush();
+	  
 	  BaseClass.driver.quit();
   }
 }

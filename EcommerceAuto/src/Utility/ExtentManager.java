@@ -18,15 +18,17 @@ public class ExtentManager {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		
 		 filePath="E:\\testdata\\reports\\"+"Extent_Report_"+timestamp.toString().replace(":", "_").replace("-","_").replace(" ","_").replace(".", "_")+".html";
-	
+		// filePath="./src/ExtentReports/Extent_Report"+timestamp.toString().replace(":", "_").replace("-","_").replace(" ","_").replace(".", "_")+".html";
 		if (extent != null)
         return extent; //avoid creating new instance of html file
+		
         extent = new ExtentReports();		
 		extent.attachReporter(getHtmlReporter());
 		return extent;
 	}
  
 	private static ExtentHtmlReporter getHtmlReporter() {
+		System.out.println(filePath);
 	
         htmlReporter = new ExtentHtmlReporter(filePath);
 		
