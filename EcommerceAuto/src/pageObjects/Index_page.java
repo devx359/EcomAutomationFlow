@@ -12,10 +12,23 @@ public class Index_page extends BaseClass
 		
 	}
 
-	public static WebElement button_SignIn()
+	public static WebElement link_SignIn()
 	{
 		
 		WebElement element = driver.findElement(By.xpath("//a[@title='Log in to your customer account']"));
 		return element;
 	}
+	
+	public static WebElement link_SignOut()
+	{
+		WebElement element = driver.findElement(By.xpath("//a[@title='Log me out']"));
+		return element;
+	}
+	
+	public static WebElement link_CustomerAccount()
+	{
+		WebElement element = driver.findElement(By.xpath("//a[@title='View my customer account']"));
+		return element;
+	}
+	
 }

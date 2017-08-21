@@ -17,6 +17,7 @@ import com.aventstack.extentreports.ExtentTest;
 import pageObjects.BaseClass;
 import Utility.Browser;
 import Utility.ExtentManager;
+import Utility.IOExcel;
 import Utility.Log;
 import Utility.Screenshot;
 
@@ -24,6 +25,7 @@ public class Flow01 {
 	String testCaseName;
 	ExtentReports reports;
 	ExtentTest test;
+	IOExcel excelob;
 	
 	@BeforeSuite
 	public void startup()
@@ -31,6 +33,8 @@ public class Flow01 {
 		WebDriver	driver = Browser.getDriver("chrome");
 		new BaseClass(driver);
 		reports = ExtentManager.GetExtent();
+		IOExcel.excelSetup("E:\\testdata\\data4.xlsx");
+		
 	}
 	@BeforeMethod
 	public void init(Method method)
@@ -47,8 +51,9 @@ public class Flow01 {
 	}
   @Test
   public void fuck1() {
+	 // excelob = new IOExcel("E:\\testdata\\data4.xlsx");
 	  
-	  BaseClass.driver.get("http://google.co.in");
+	 /* BaseClass.driver.get("http://google.co.in");
 	  String path=Screenshot.screenShot(BaseClass.driver,"fuck1login" );
 	  try {
 		test.addScreenCaptureFromPath(path);
@@ -56,25 +61,36 @@ public class Flow01 {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	  Log.info("Inside "+testCaseName);
+	  */
+	  System.out.println("Excel data: "+IOExcel.getExcelData( 1, 1, "Sheet1"));
+	  IOExcel.setExcelData( 1, 15, "xxxxxlueeee set fuckeeers", "Sheet1");
+	  Log.info("Written to sheet 1");
+	 /* Log.info("Inside "+testCaseName);
 	  Log.debug("inside debug 1");
-	  test.debug("Inside "+testCaseName);
+	  test.debug("Inside "+testCaseName);*/
 	  test.pass("Passed with flying colors");
 	  
   }
   @Test
   public void fuck2() {
-	  BaseClass.driver.get("http://facebook.com");
+	  //IOExcel.excelSetup("E:\\testdata\\data4.xlsx", 0);
+	 /* BaseClass.driver.get("http://facebook.com");
 	  String path=Screenshot.screenShot(BaseClass.driver,"fuck2login" );
 	  try {
 		test.addScreenCaptureFromPath(path);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
-	  Log.info("Inside "+testCaseName);
+	}*/
+	 
+	  System.out.println("Excel data: "+IOExcel.getExcelData( 2, 1, "Sheet1"));
+	  IOExcel.setExcelData(2, 5, "kkkStuff is working", "Sheet1");
+	  Log.info("Written to sheet 1");
+	  IOExcel.setExcelData(1,18, "Whoaa Duude Stuff is working", "Sheet1");
+	  Log.info("Written to sheet 2");
+	  /* Log.info("Inside "+testCaseName);
 	  Log.debug("inside debug 2");
-	  test.debug("Inside "+testCaseName);
+	  test.debug("Inside "+testCaseName);*/
 	  test.pass("Passed with flying colors");
 	  
   }
@@ -82,6 +98,7 @@ public class Flow01 {
   public void exit()
   {
 	  Log.endLoggForThisCase();
+	//  excelob.teardown();
 	 
   }
   @AfterSuite
