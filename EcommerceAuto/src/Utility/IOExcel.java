@@ -47,13 +47,12 @@ public class IOExcel {
 		 
 	}
 	
-	public static String getExcelData(int row,int col,String sheetname)
+	public static String getExcelStringData(int row,int col,String sheetname)
 	{
 		String cellvalue=null;
 		
 		try {
 			sheet=wbook.getSheet(sheetname);
-	//		sheet.setSelected(true);
 			cellvalue=sheet.getRow(row).getCell(col).getStringCellValue();
 		} catch (Exception e) {						
 			Log.error("Excel file data problem: "+e);
@@ -61,16 +60,40 @@ public class IOExcel {
 		}
 		return cellvalue;
 	}
+	public static Integer getExcelIntData(int row,int col,String sheetname)
+	{
+		Integer cellvalue=0;
+		
+		try {
+			sheet=wbook.getSheet(sheetname);
+			cellvalue=(int) sheet.getRow(row).getCell(col).getNumericCellValue();
+		} catch (Exception e) {						
+			Log.error("Excel file data problem: "+e);
+			e.printStackTrace();
+		}
+		return cellvalue;
+	}
+	
 	
 
 	
-	public static void setExcelData( int row,int columnIndex,String stringValue,String sheetname)
+	public static void setExcelStringData( int row,int columnIndex,String stringValue,String sheetname)
 	{
 			
 		try {
 			sheet=wbook.getSheet(sheetname);
-		//	sheet.setSelected(true);
 			crow = sheet.getRow(row);
+			if(crow==null)
+			{
+				Log.info("row is not Created");
+				try {
+					crow=sheet.createRow(row);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
 			cell = crow.getCell(columnIndex, MissingCellPolicy.RETURN_NULL_AND_BLANK);
 			if(cell==null)
 			{
@@ -93,6 +116,44 @@ public class IOExcel {
 		
 	}
 	
-	
+	public static void setExcelIntData( int rowparam,int columnIndex,int Value,String sheetname)
+	{
+			
+		try {
+			sheet=wbook.getSheet(sheetname);
+			crow = sheet.getRow(rowparam);
+			if(crow==null)
+				{
+					Log.info("row is not Created");
+					try {
+						crow=sheet.createRow(rowparam);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+			
+			cell = crow.getCell(columnIndex, MissingCellPolicy.RETURN_NULL_AND_BLANK);
+			if(cell==null)
+			{
+				crow.createCell(columnIndex).setCellValue(Value);
+			}
+			else {
+				cell.setCellValue(Value);
+			}
+			
+			output=new FileOutputStream(excelfilepath);
+			wbook.write(output);
+			output.flush();
+			output.close();
+		
+		} 
+		catch (Exception e) {
+			Log.error("Excel write problem : "+e);
+			e.printStackTrace();
+		}
+		
+	}
 
 }

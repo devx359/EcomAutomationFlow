@@ -62,8 +62,8 @@ public class Flow01 {
 		e.printStackTrace();
 	}
 	  */
-	  System.out.println("Excel data: "+IOExcel.getExcelData( 1, 1, "Sheet1"));
-	  IOExcel.setExcelData( 1, 15, "xxxxxlueeee set fuckeeers", "Sheet1");
+	  System.out.println("Excel data: "+IOExcel.getExcelStringData( 1, 1, "Sheet1"));
+	  IOExcel.setExcelStringData( 1, 15, "xxxxxlueeee set fuckeeers", "Sheet1");
 	  Log.info("Written to sheet 1");
 	 /* Log.info("Inside "+testCaseName);
 	  Log.debug("inside debug 1");
@@ -83,11 +83,13 @@ public class Flow01 {
 		e.printStackTrace();
 	}*/
 	 
-	  System.out.println("Excel data: "+IOExcel.getExcelData( 2, 1, "Sheet1"));
-	  IOExcel.setExcelData(2, 5, "kkkStuff is working", "Sheet1");
+	  System.out.println("Excel data: "+IOExcel.getExcelStringData( 2, 1, "Sheet1"));
+	  IOExcel.setExcelStringData(16, 5, "kkkStuff is working", "Sheet2");
 	  Log.info("Written to sheet 1");
-	  IOExcel.setExcelData(1,18, "Whoaa Duude Stuff is working", "Sheet1");
+	  IOExcel.setExcelIntData(8,5, 77777, "Sheet2");
 	  Log.info("Written to sheet 2");
+	  System.out.println(IOExcel.getExcelIntData(2, 2, "Sheet2"));
+	  
 	  /* Log.info("Inside "+testCaseName);
 	  Log.debug("inside debug 2");
 	  test.debug("Inside "+testCaseName);*/
