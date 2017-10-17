@@ -14,7 +14,7 @@ public class Browser {
 			try
 			{
 				Log.debug("Loading Chrome browser driver ");
-				System.setProperty("webdriver.chrome.driver", "E:\\softwares\\selenium\\chromedriver.exe");
+				System.setProperty("webdriver.chrome.driver", "F:\\softwares\\selenium\\chromedriver.exe");
 				driver=new ChromeDriver();
 				Log.debug("Loaded Chrome browser driver ");
 				driver.manage().window().maximize();
@@ -32,7 +32,7 @@ public class Browser {
 		else if(browser.equalsIgnoreCase("firefox"))
 		{
 			try{
-			System.setProperty("webdriver.gecko.driver", "E:\\softwares\\selenium\\geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", "F:\\softwares\\selenium\\geckodriver.exe");
 			driver = new FirefoxDriver();
 			Log.debug("Loaded FireFox browser driver ");
 			driver.manage().window().maximize();
